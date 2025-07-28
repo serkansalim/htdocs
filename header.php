@@ -14,6 +14,7 @@
         <li><a href="index.php">Anasayfa</a></li>
         <li><a href="hakkimizda.php">Hakkımızda</a></li>
         <li><a href="iletisim.php">İletişim</a></li>
+        <li><a href="panel.php">Sistem Giriş</a></li>
       </ul>
     </nav>
   </header>

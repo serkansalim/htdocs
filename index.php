@@ -1,9 +1,20 @@
 <?php include 'header.php'; ?>
 
 <div class="slider-wrapper">
-  <img src="img/baybaki1.jpg" alt="Fotoğraf 1" class="slider-img active">
-  <img src="img/baybaki2.jpg" alt="Fotoğraf 2" class="slider-img">
+  <?php
+  $dataFile = 'data.json';
+  $gorseller = json_decode(@file_get_contents($dataFile), true) ?? [];
 
+  if (count($gorseller) === 0) {
+      echo '<p>Gösterilecek fotoğraf bulunamadı.</p>';
+  } else {
+      foreach ($gorseller as $index => $img) {
+          // İlk fotoğrafa active class veriyoruz
+          $activeClass = ($index === 0) ? 'active' : '';
+          echo '<img src="' . htmlspecialchars($img) . '" alt="Fotoğraf" class="slider-img ' . $activeClass . '">';
+      }
+  }
+  ?>
   <button onclick="prevSlide()" class="slider-btn left">◀</button>
   <button onclick="nextSlide()" class="slider-btn right">▶</button>
 </div>
@@ -13,14 +24,22 @@
   <h2>ÜRÜNLERİMİZ</h2>
   <div class="line"></div>
 </div>
+
 <div class="urunler-wrapper">
   <button class="urun-btn left">◀</button>
   <div class="urunler-track">
-    <img src="img/baybaki11.jpg">
-    <img src="img/baybaki3.jpg">
-    <img src="img/baybaki4.jpg">
-    <img src="img/baybaki7.jpg">
-    <img src="img/baybaki6.jpg">
+    <?php
+    $urunlerDosyasi = 'urunler.json';
+    $urunler = json_decode(@file_get_contents($urunlerDosyasi), true) ?? [];
+
+    if (count($urunler) === 0) {
+        echo '<p>Gösterilecek ürün bulunamadı.</p>';
+    } else {
+        foreach ($urunler as $urun) {
+            echo '<img src="' . htmlspecialchars($urun) . '" alt="Ürün">';
+        }
+    }
+    ?>
   </div>
   <button class="urun-btn right">▶</button>
 </div>
@@ -71,7 +90,9 @@
     const track = document.querySelector(".urunler-track");
     const leftBtn = document.querySelector(".urun-btn.left");
     const rightBtn = document.querySelector(".urun-btn.right");
-    const itemWidth = track.querySelector("img").offsetWidth + 10; // + gap
+    const imgs = track.querySelectorAll("img");
+    if(imgs.length === 0) return; // Ürün yoksa işlemi durdur
+    const itemWidth = imgs[0].offsetWidth + 10; // 10px boşluk var ise ayarla
     let currentIndex = 0;
 
     function updateSlide() {
@@ -87,13 +108,11 @@
     });
 
     rightBtn.addEventListener("click", () => {
-      const maxIndex = track.children.length - 4; // 4 ürün görünür
+      const maxIndex = imgs.length - 4; // 4 ürün görünür diye ayarladım
       if (currentIndex < maxIndex) {
         currentIndex++;
         updateSlide();
       }
     });
   });
-
 </script>
-
