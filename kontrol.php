@@ -1,11 +1,9 @@
 <?php
 session_start();
 
-// Sabit kullanıcı adı ve şifre (örnek için, gerçek projede veritabanı kullan)
 $dogru_kullanici = "admin";
 $dogru_sifre = "00000";
 
-// Formdan gelen
 $kullanici = $_POST['kullanici'] ?? '';
 $sifre = $_POST['sifre'] ?? '';
 
