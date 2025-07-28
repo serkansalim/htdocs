@@ -31,4 +31,3 @@ while ($row = $result->fetch_assoc()) {
     $gorseller[] = $row['dosya_yolu'];
 }
 ?>
-<!-- HTML kısmı JSON yerine $gorseller kullanarak görüntüleme yapabilir -->

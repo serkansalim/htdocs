@@ -2,18 +2,15 @@
 $mesaj = '';
 $urunlerDosyasi = "urunler.json";
 
-// Ürün silme işlemi
 if (isset($_GET['sil'])) {
     $silinen = $_GET['sil'];
     $urunler = json_decode(@file_get_contents($urunlerDosyasi), true) ?? [];
 
-    // JSON'dan ürünü kaldır
     $urunler = array_filter($urunler, function ($urun) use ($silinen) {
         return $urun !== $silinen;
     });
     file_put_contents($urunlerDosyasi, json_encode(array_values($urunler), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
-    // Fiziksel dosyayı sil
     if (file_exists($silinen)) {
         unlink($silinen);
         $mesaj = "Ürün başarıyla silindi.";
@@ -22,7 +19,6 @@ if (isset($_GET['sil'])) {
     }
 }
 
-// Ürün yükleme işlemi
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['foto']) && $_FILES['foto']['size'] > 0) {
     $uploadDir = "uploads/";
     if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
@@ -38,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['foto']) && $_FILES['
     }
 }
 
-// Ürünleri listele
 $urunler = json_decode(@file_get_contents($urunlerDosyasi), true) ?? [];
 ?>
 
