@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$user = 'db_kullanici';
-$pass = 'db_sifre';
-$db   = 'veritabani_adi';
+$user = 'root';
+$pass = '';
+$db   = 'site_veritabani';
 
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
