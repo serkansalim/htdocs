@@ -13,35 +13,27 @@
     $gosterilenler[] = $satir['baslik'];
 
     $baslik = htmlspecialchars($satir['baslik']);
-    $bilgi = htmlspecialchars($satir['bilgi']);
+    $bilgi = $satir['bilgi'];
   ?>
     <div style="margin-bottom: 15px;">
       <strong><?= $baslik ?>:</strong>
       <p style="margin: 5px 0;">
         <?php if (strtolower($baslik) === 'telefon'): ?>
           <?php
-            // Telefon numarasını temizle
-            $rakamlar = preg_replace('/\D+/', '', $bilgi); // Sadece sayılar
+            $rakamlar = preg_replace('/\D+/', '', $bilgi);
 
-            // Eğer başta 90 varsa sil
-            if (substr($rakamlar, 0, 2) === '90') {
-              $rakamlar = substr($rakamlar, 2);
+            if (substr($rakamlar, 0, 2) !== '90') {
+              if (substr($rakamlar, 0, 1) === '0') {
+                $rakamlar = substr($rakamlar, 1);
+              }
+              $rakamlar = '90' . $rakamlar;
             }
 
-            // Eğer başta 0 varsa sil
-            if (substr($rakamlar, 0, 1) === '0') {
-              $rakamlar = substr($rakamlar, 1);
-            }
-
-            // Tel href için formatla
-            $telHref = 'tel:+90' . $rakamlar;
-
-            // Ekranda gösterilecek hali (boşluklu orijinal hali)
-            $gorunen = $bilgi;
+            $telHref = 'tel:+' . $rakamlar;
           ?>
-          <a href="<?= $telHref ?>"><?= $gorunen ?></a>
+          <a href="<?= $telHref ?>"><?= htmlspecialchars($bilgi) ?></a>
         <?php else: ?>
-          <?= nl2br($bilgi) ?>
+          <?= nl2br(htmlspecialchars($bilgi)) ?>
         <?php endif; ?>
       </p>
     </div>
