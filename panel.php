@@ -45,21 +45,26 @@ $page = $_GET['sayfa'] ?? 'dashboard';
     <a href="?sayfa=dashboard" class="<?= $page === 'dashboard' ? 'active' : '' ?>">📊 Dashboard</a>
     <a href="?sayfa=fotograf" class="<?= $page === 'fotograf' ? 'active' : '' ?>">🖼️ Fotoğraf Ekle</a>
     <a href="?sayfa=urun" class="<?= $page === 'urun' ? 'active' : '' ?>">📦 Ürün Ekle</a>
+    <a href="?sayfa=iletisim-duzenle" class="<?= $page === 'iletisim-duzenle' ? 'active' : '' ?>"> 📞 İletisim</a>
+
     <a href="cikis.php" class="d-block text-danger border rounded p-3 m-3 text-center fw-semibold" style="background:#ffe6e6;">
       🚪 Çıkış Yap
     </a>
   </div>
 
   <div class="col-md-9 col-lg-10 p-4 bg-light">
-    <?php
-    if ($page === 'fotograf') {
-        include 'sayfalar/fotograf.php';
-    } elseif ($page === 'urun') {
-        include 'sayfalar/urun.php';
-    } else {
-        echo "<h2>DASHBOARD</h2>";
-    }
-    ?>
+<?php
+if ($page === 'fotograf') {
+    include 'sayfalar/fotograf.php';
+} elseif ($page === 'urun') {
+    include 'sayfalar/urun.php';
+} elseif ($page === 'iletisim-duzenle') {
+    include 'sayfalar/iletisim-duzenle.php';
+} else {
+    echo "<h2>DASHBOARD</h2>";
+}
+?>
+
   </div>
 </div>
 
